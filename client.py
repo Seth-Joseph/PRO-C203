@@ -1,5 +1,3 @@
-from email import message
-from os import stat
 import socket
 from threading import Thread
 from tkinter import *
@@ -36,7 +34,6 @@ class GUI:
 
     def goAhead(self,name):
         self.login.destroy()
-        # self.name = name
         self.layout(name)
         rcv = Thread(target=self.recieve)
         rcv.start()
@@ -51,9 +48,6 @@ class GUI:
 
         self.labelHead = Label(text=self.name,bg='#202121',fg='#FFF',font='Helvetica 18 bold',pady=5)
         self.labelHead.place(relx=0.5,rely=0.02,anchor=CENTER)
-
-        # self.line = Label(self.window,width=776,bg='#00a985')
-        # self.line.place(relwidth=1,relheight=0.01,rely=0.05)
 
         self.textCons = Text(self.window,width = 20,height = 2,bg = "#252525",fg = "#EAECEE",font = "Helvetica 14",padx = 5,pady = 5,bd=0,highlightthickness=2)
         self.textCons.place(relheight = 0.745,relwidth = 0.95,rely = 0.06,relx=0.025)
@@ -96,9 +90,6 @@ class GUI:
                     client.send(self.name.encode('utf-8'))
                 else:
                     self.show_message(message)
-
-                    # print('failed')
-                    # pass
             except:
                 print('Connection error.')
                 client.close()

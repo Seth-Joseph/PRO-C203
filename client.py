@@ -11,7 +11,6 @@ client.connect((ip_address, port))
 
 print("Connected to the server successfully!")
 
-
 class GUI:
     def __init__(self):
 
@@ -44,7 +43,6 @@ class GUI:
         rcv.start()
 
     def layout(self, name):
-
         self.name = name
         self.window.deiconify()
         self.window.title("CHATROOM")
@@ -61,14 +59,17 @@ class GUI:
         self.labelBottom = Label(self.window,bg='#202121',height=80)
         self.labelBottom.place(relwidth = 1,rely = 0.82)
 
-        self.entryMsg = Entry(self.labelBottom,font='Helvetica 14',bg='#252525',fg='#FFF',bd=0,insertbackground='#00a985',highlightthickness=2)
-        self.entryMsg.config(highlightbackground = "black", highlightcolor= "black")
-        self.entryMsg.place(relx=0.045,rely=0.02,relheight=0.04,relwidth=0.8)
-        self.entryMsg.focus()
+        self.a = Button(self.labelBottom,text="a",font='Helvetica 14 bold',width=30,bg='#00a985',fg='#FFF',bd=0,command=lambda : self.sendButton(msg='a'))
+        self.a.place(relx=0.15,rely=0.02,relheight=0.04,relwidth=0.1)
 
-        self.buttonMsg = Button(self.labelBottom,text="Send",font='Helvetica 14 bold',width=30,bg='#00a985',fg='#FFF',bd=0,command=lambda: self.sendButton(self.entryMsg.get()))
-        self.buttonMsg.place(relx=0.855,rely=0.02,relheight=0.04,relwidth=0.1)
+        self.b = Button(self.labelBottom,text="b",font='Helvetica 14 bold',width=30,bg='#00a985',fg='#FFF',bd=0,command=lambda: self.sendButton(msg='b'))
+        self.b.place(relx=0.35,rely=0.02,relheight=0.04,relwidth=0.1)
 
+        self.c = Button(self.labelBottom,text="c",font='Helvetica 14 bold',width=30,bg='#00a985',fg='#FFF',bd=0,command=lambda: self.sendButton(msg='c'))
+        self.c.place(relx=0.55,rely=0.02,relheight=0.04,relwidth=0.1)
+
+        self.d = Button(self.labelBottom,text="d",font='Helvetica 14 bold',width=30,bg='#00a985',fg='#FFF',bd=0,command=lambda: self.sendButton(msg='d'))
+        self.d.place(relx=0.75,rely=0.02,relheight=0.04,relwidth=0.1)
 
         scrollbar = Scrollbar(self.textCons)
         scrollbar.place(relheight=1,relx=0.974)
@@ -76,10 +77,17 @@ class GUI:
 
         self.textCons.config(state=DISABLED)
 
-    def sendButton(self, msg):
+    def sendButton(self,msg):
         self.textCons.config(state=DISABLED)
-        self.msg = msg
-        self.entryMsg.delete(0, END)
+
+        if msg == 'a':
+            self.msg = 'a'
+        elif msg == 'b':
+            self.msg = 'b'
+        elif msg == 'c':
+            self.msg = 'c'
+        elif msg == 'd':
+            self.msg = 'd'
         snd = Thread(target=self.write)
         snd.start()
 
@@ -109,6 +117,5 @@ class GUI:
             client.send(message.encode('utf-8'))
             self.show_message(message)
             break
-
 
 g = GUI()
